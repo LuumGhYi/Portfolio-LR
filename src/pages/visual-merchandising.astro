@@ -1,0 +1,146 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import TopNav from '@components/TopNav.astro';
+import SiteFooter from '@components/SiteFooter.astro';
+import ImageRow from '@components/ImageRow.astro';
+import Figure from '@components/Figure.astro';
+import RowText from '@components/RowText.astro';
+import {
+  VM_HEAD,
+  VM_DAM_HEAD,
+  VM_ROWS,
+  VM_COLLAB,
+} from '@data/vm';
+import { buildImageGallery } from '@data/structured-data';
+
+const galleryImages = VM_ROWS.flatMap((row) =>
+  row.items
+    .filter((item) => item.kind === 'figure')
+    .map((item) => ({ src: item.src, alt: item.alt }))
+);
+
+const structuredData = buildImageGallery({
+  name: 'Visual Merchandising — Lucas Rageot',
+  description: "H&M Dam flagship, French premium positioning, luxury collaboration.",
+  url: '/visual-merchandising',
+  images: galleryImages,
+});
+---
+
+<BaseLayout
+  title="Visual Merchandising · Lucas Rageot"
+  description="H&M Dam flagship, Made-in-France register, luxury collaboration. Eight years of visual merchandising."
+  bodyClass="page-vm"
+  current="visual-merchandising"
+  structuredData={structuredData}
+>
+  <TopNav current="visual-merchandising" overlay={false} />
+
+  <div class="page-body">
+
+    <section class="section section--dark grain" style="padding-bottom: 40px">
+      <div class="section__inner">
+        <div class="work__head">
+          <div>
+            <h2>{VM_HEAD.title}</h2>
+          </div>
+          <div>
+            <div class="meta">
+              {VM_HEAD.meta.map((m) => <span>{m}</span>)}
+            </div>
+            <p class="work__intro">{VM_HEAD.intro}</p>
+          </div>IMG_20241112_094036_DxO.png
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--dark grain section--bleed" style="padding-top: 0">
+
+      {/* DAM hero (first row before the inner head) */}
+      <ImageRow variant={VM_ROWS[0]!.variant} className={VM_ROWS[0]!.className}>
+        {VM_ROWS[0]!.items.map((item) => item.kind === 'figure' && (
+          <Figure
+            src={item.src}
+            alt={item.alt}
+            aspect={item.aspect}
+            className={item.className}
+            cap={item.cap}
+            sub={item.sub}
+            priority={item.priority}
+          />
+        ))}
+      </ImageRow>
+
+      <div class="section__inner section__inner--padded">
+        <span class="eyebrow eyebrow--block">{VM_DAM_HEAD.eyebrow}</span>
+        <div class="work__head" style="margin-bottom: 64px">
+          <div>
+            <h2 set:html={VM_DAM_HEAD.title.replace('\n', '<br/>')} />
+          </div>
+          <div>
+            <div class="meta">
+              {VM_DAM_HEAD.meta.map((m) => <span>{m}</span>)}
+            </div>
+            <p class="work__intro">{VM_DAM_HEAD.intro}</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Remaining rows */}
+      {VM_ROWS.slice(1).map((row) => (
+        <ImageRow variant={row.variant} className={row.className} style={row.style}>
+          {row.items.map((item) =>
+            item.kind === 'figure' ? (
+              <Figure
+                src={item.src}
+                alt={item.alt}
+                aspect={item.aspect}
+                className={item.className}
+                cap={item.cap}
+                sub={item.sub}
+                priority={item.priority}
+              />
+            ) : (
+              <RowText
+                caption={item.caption}
+                title={item.title}
+                body={item.body}
+                cite={item.cite}
+                asQuote={item.asQuote}
+              />
+            )
+          )}
+        </ImageRow>
+      ))}
+
+      <div class="section__inner section__inner--padded">
+        <p class="work__notes">
+          All photography depicts visual merchandising work executed at H&amp;M Flagship Amsterdam Dam.
+          Brand marks not displayed out of respect for the company's visual standards.
+          Close-up mannequin styling on the <a href="/styling-expert">Styling Expert</a> page.
+        </p>
+      </div>
+
+    </section>
+
+    {/* COLLAB */}
+    <section class="section section--light grain">
+      <div class="section__inner">
+        <div class="collab">
+          <div>
+            <span class="eyebrow eyebrow--block">{VM_COLLAB.eyebrow}</span>
+            <h3>{VM_COLLAB.title}</h3>
+            <div class="meta">{VM_COLLAB.meta}</div>
+          </div>
+          <div>
+            {VM_COLLAB.body.map((para) => <p>{para}</p>)}
+            <p class="collab__note">{VM_COLLAB.note}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <SiteFooter />
+</BaseLayout>

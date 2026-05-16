@@ -1,0 +1,73 @@
+---
+import { SITE } from '@data/site';
+import { PAGES } from '@data/nav';
+---
+
+<footer id="contact" class="site-footer grain">
+  <div class="site-footer__inner">
+
+    <div class="site-footer__head">
+      <div>
+        <span class="available">{SITE.availability}</span>
+        <h2 class="site-footer__title"><em>Contact</em></h2>
+      </div>
+      <p class="site-footer__lead">
+        Open to Visual Merchandiser, Client Advisor and Visual Specialist roles.
+        CV in four versions, sent on request with references and additional portfolio material.
+      </p>
+    </div>
+
+    <ul class="site-footer__contact" aria-label="Contact information">
+      <li>
+        <a class="site-footer__row" href={`mailto:${SITE.email}`}>
+          <span class="site-footer__row-label">Email</span>
+          <span class="site-footer__row-value">{SITE.email}</span>
+          <span class="arrow">Write</span>
+        </a>
+      </li>
+      <li>
+        <a class="site-footer__row" href={`tel:${SITE.phone}`}>
+          <span class="site-footer__row-label">Phone</span>
+          <span class="site-footer__row-value">{SITE.phoneDisplay}</span>
+          <span class="arrow">Call</span>
+        </a>
+      </li>
+      <li>
+        <a class="site-footer__row" href={SITE.linkedin} target="_blank" rel="noopener noreferrer">
+          <span class="site-footer__row-label">LinkedIn</span>
+          <span class="site-footer__row-value">{SITE.linkedinDisplay}</span>
+          <span class="arrow">Open</span>
+        </a>
+      </li>
+      <li>
+        <div class="site-footer__row">
+          <span class="site-footer__row-label">Based</span>
+          <span class="site-footer__row-value">{`${SITE.location.city}, ${SITE.location.country}`}</span>
+          <span class="arrow">EU citizen</span>
+        </div>
+      </li>
+      <li>
+        <div class="site-footer__row">
+          <span class="site-footer__row-label">Relocating</span>
+          <span class="site-footer__row-value">{`${SITE.relocation.city}, ${SITE.relocation.country}`}</span>
+          <span class="arrow">{SITE.relocation.when}</span>
+        </div>
+      </li>
+    </ul>
+
+    <div class="site-footer__sectors">
+      <p class="caption">Sectors of interest</p>
+      <p>
+        Premium and luxury retail · Specialty sport and outdoor ·
+        Scandinavian independent fashion · French premium positioning
+      </p>
+    </div>
+
+    <nav class="site-footer__nav" aria-label="Footer navigation">
+      {PAGES.map((p) => (
+        <a href={p.href}>{p.label}</a>
+      ))}
+    </nav>
+
+  </div>
+</footer>

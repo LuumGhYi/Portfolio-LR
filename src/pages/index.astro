@@ -1,0 +1,146 @@
+---
+import { Picture } from 'astro:assets';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import TopNav from '@components/TopNav.astro';
+import SiteFooter from '@components/SiteFooter.astro';
+import Photo from '@components/Photo.astro';
+import { resolveImage } from '@data/image-resolver';
+import {
+  HERO,
+  TILES,
+  APPROACH_PILLARS,
+  ABOUT_META,
+  ABOUT_PORTRAIT,
+} from '@data/landing';
+
+// Hero and tiles need direct <Image> use (not via Photo) because they're not
+// lightbox-clickable — full-bleed background and link wrappers.
+const heroImg = resolveImage(HERO.src);
+const tileImgs = TILES.map((t) => ({ ...t, resolved: resolveImage(t.img) }));
+---
+
+<BaseLayout
+  title="Lucas Rageot, Visual Merchandiser · Portfolio 2026"
+  current="index"
+>
+  <TopNav current="index" overlay={true} />
+
+  <section id="cover" class="section section--dark grain cover">
+    <div class="cover__bg">
+      <Picture
+        src={heroImg}
+        alt={HERO.alt}
+        widths={[1280, 1920, 2560]}
+        sizes="100vw"
+        formats={['avif', 'webp']}
+        fallbackFormat="jpg"
+        quality={85}
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+      />
+    </div>
+
+    <div class="cover__main">
+      <div>
+        <div class="cover__role">Visual Merchandiser · Portfolio</div>
+        <h1>Lucas <em>Rageot</em></h1>
+        <div class="cover__sub">
+          H&amp;M&apos;s Amsterdam flagship. French premium menswear floors
+          before that. Relocating to Copenhagen.
+        </div>
+      </div>
+      <div class="cover__meta">
+        <div>Haarlem, NL</div>
+        <div>Available</div>
+        <div><a href="#contact">Contact</a></div>
+      </div>
+    </div>
+
+    <div class="cover__hint">Scroll</div>
+  </section>
+
+  <section class="section section--light grain">
+    <div class="section__inner">
+      <div class="entry-tiles">
+        {tileImgs.map((t) => (
+          <a class="entry-tile" href={t.href}>
+            <Picture
+              src={t.resolved}
+              alt={t.alt}
+              widths={[480, 720, 960]}
+              sizes="(min-width: 1024px) 33vw, 100vw"
+              formats={['avif', 'webp']}
+              fallbackFormat="jpg"
+              quality={82}
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="entry-tile__body">
+              <span class="entry-tile__num">Page {t.n}</span>
+              <h3 class="entry-tile__title">{t.title}</h3>
+              <p class="entry-tile__desc">{t.desc}</p>
+              <span class="entry-tile__cta">Enter</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="section section--light grain">
+    <div class="section__inner about__grid">
+      <div class="about__photo">
+        {/* TODO: Replace src/assets/images/about/portrait-placeholder.jpg
+            with the actual portrait when Lucas provides one. Same dimensions
+            preferred (~4:5 portrait). */}
+        <Photo
+          src={ABOUT_PORTRAIT.src}
+          alt={ABOUT_PORTRAIT.alt}
+          variant="tile"
+        />
+      </div>
+      <div class="about__text">
+        <span class="eyebrow">About</span>
+        <h2>Lucas, 33, French. Retail floor experience</h2>
+        <p class="lead">
+          I was the Visual Merchandiser at H&amp;M Amsterdam Dam: six floors,
+          womenswear and menswear. Before that, premium menswear floors in France
+          (Olly Gan, Le Slip Français).
+          Consultative selling, clienteling, French premium positioning, for people who value quality and domestic production.
+        </p>
+        <p class="lead">
+          On the side: I co-founded a recording studio for emerging artists in
+          Marseille, played bass across multiple genres, and keep an
+          ongoing photography practice in the Highlands, Calanques and Alps.
+        </p>
+        <div class="about__sig">Lucas</div>
+
+        <dl class="about__meta">
+          {ABOUT_META.map((m) => (
+            <>
+              <dt>{m.label}</dt>
+              <dd>{m.value}</dd>
+            </>
+          ))}
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--light grain">
+    <div class="section__inner">
+      <div class="approach__pillars">
+        {APPROACH_PILLARS.map((p) => (
+          <div class="pillar">
+            <span class="pillar__num">{p.n}</span>
+            <h3>{p.title}</h3>
+            <p>{p.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <SiteFooter />
+</BaseLayout>

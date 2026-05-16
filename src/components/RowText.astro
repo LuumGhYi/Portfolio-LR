@@ -1,0 +1,33 @@
+---
+// Editorial side text inside an ImageRow. Replaces the repeated
+// `<div class="row-text"><span class="caption">…</span><h3>…</h3><p>…</p></div>`
+// pattern that appears 15+ times across the legacy JSX.
+
+export interface Props {
+  caption: string;
+  title: string;
+  body: string;
+  /** Pass true for a one-paragraph body wrapped in a blockquote (used for quotes). */
+  asQuote?: boolean;
+  /** Optional citation source for quotes (renders inside <cite>). */
+  cite?: string;
+}
+
+const { caption, title, body, asQuote = false, cite } = Astro.props;
+---
+
+<div class="row-text">
+  <span class="caption">{caption}</span>
+  {asQuote ? (
+    <blockquote>
+      <h3>{title}</h3>
+      <p>{body}</p>
+      {cite && <cite>{cite}</cite>}
+    </blockquote>
+  ) : (
+    <>
+      <h3>{title}</h3>
+      <p>{body}</p>
+    </>
+  )}
+</div>

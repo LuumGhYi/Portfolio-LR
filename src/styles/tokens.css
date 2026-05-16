@@ -1,0 +1,99 @@
+/* ============================================================
+   DESIGN TOKENS — colour, typography, rhythm, atmosphere
+   Single source of truth for every CSS custom property.
+   ============================================================ */
+
+:root {
+  --creme-chaud: #f5f2eb;
+  --creme-clair: #f0ede5;
+  --quasi-noir: #1e2328;
+  --quasi-noir-2: #262b30;
+  --vert-veronese: #3d6b6b;
+  --ocre-klimt: #c9a227;
+  --charbon: #2d2d2d;
+  --gris-moyen: #6b6b6b;
+  --gris-clair: #a8a39a;
+
+  /* Display & editorial — Fraunces (variable, opsz 9..144, wght 300..700, italic).
+     Covers monumental h1/h2, decorative h3, and narrative italic accents (em).
+     Body, lead, labels (via small caps), nav — Bricolage Grotesque (variable, opsz/wdth/wght).
+     Humanist grotesque with character — closer to Dwight than to neutral Inter. */
+  --font-display: 'Fraunces', 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Bricolage Grotesque', 'Helvetica Neue', system-ui, sans-serif;
+
+  --vrhythm: 1;
+  --photo-density: 1;
+  --grain-opacity: 0.22;
+  --photo-saturate: 0.92;
+  --photo-sepia: 0.04;
+  --photo-contrast: 0.96;
+  --accent: var(--vert-veronese);
+  --accent-2: var(--ocre-klimt);
+
+  --max-w: 1480px;
+  --gutter: clamp(20px, 4vw, 64px);
+  --topnav-h: 64px;
+
+  /* Espace constant entre une photo et un row-text dans une image-row.
+     Garantit un rythme de lecture régulier d'une rangée à l'autre. */
+  --row-text-gap: clamp(48px, 5vw, 96px);
+}
+
+/* Atmospheric light per page — set by body class, falls back to neutral */
+:root {
+  --atmo-warm-h: 70;     /* hue of upper-left warm rim (dark sections) */
+  --atmo-warm-c: 0.07;   /* chroma */
+  --atmo-warm-l: 0.48;   /* lightness — high enough to register */
+  --atmo-warm-a: 0.55;   /* alpha */
+  --atmo-cool-h: 240;    /* counter-shadow hue */
+  --atmo-cool-a: 0.7;    /* counter-shadow alpha */
+  --atmo-light-sky-h: 220;  /* light-section sky hue */
+  --atmo-light-sky-a: 0.7;
+  --atmo-light-warm-h: 75;  /* light-section warm corner hue */
+  --atmo-light-warm-c: 0.05;
+  --atmo-light-warm-a: 0.6;
+}
+
+/* VM — warm gallery light, ochre rim, deep cool counter.
+   Photos kept closer to their native chroma so VM imagery doesn't read waxy. */
+body.page-vm {
+  --atmo-warm-h: 60;  --atmo-warm-c: 0.10; --atmo-warm-l: 0.50; --atmo-warm-a: 0.65;
+  --atmo-cool-h: 245; --atmo-cool-a: 0.75;
+  --atmo-light-sky-h: 215; --atmo-light-sky-a: 0.55;
+  --atmo-light-warm-h: 70; --atmo-light-warm-c: 0.06; --atmo-light-warm-a: 0.7;
+}
+
+/* Outdoor — cool dawn / sea light, blue rim, warm earth shadow.
+   Photos kept at native chroma — desaturation kills landscape colour palette. */
+body.page-outdoor {
+  --atmo-warm-h: 220; --atmo-warm-c: 0.06; --atmo-warm-l: 0.52; --atmo-warm-a: 0.6;
+  --atmo-cool-h: 30;  --atmo-cool-a: 0.55;
+  --atmo-light-sky-h: 220; --atmo-light-sky-a: 0.75;
+  --atmo-light-warm-h: 35; --atmo-light-warm-c: 0.04; --atmo-light-warm-a: 0.45;
+}
+
+/* Other Work — intimate lamplight, amber rim, deep neutral shadow. */
+body.page-other {
+  --atmo-warm-h: 45;  --atmo-warm-c: 0.09; --atmo-warm-l: 0.45; --atmo-warm-a: 0.7;
+  --atmo-cool-h: 270; --atmo-cool-a: 0.7;
+  --atmo-light-sky-h: 240; --atmo-light-sky-a: 0.45;
+  --atmo-light-warm-h: 50; --atmo-light-warm-c: 0.07; --atmo-light-warm-a: 0.7;
+}
+
+/* Archive page — light editorial bg, sequential vertical flow. */
+body.page-archive {
+  --atmo-warm-h: 60;  --atmo-warm-c: 0.04; --atmo-warm-l: 0.55; --atmo-warm-a: 0.35;
+  --atmo-cool-h: 250; --atmo-cool-a: 0.30;
+  --atmo-light-sky-h: 220; --atmo-light-sky-a: 0.30;
+  --atmo-light-warm-h: 60; --atmo-light-warm-c: 0.03; --atmo-light-warm-a: 0.35;
+}
+
+/* The four photography pages all keep native chroma; group rather than repeat. */
+body.page-vm,
+body.page-outdoor,
+body.page-other,
+body.page-archive {
+  --photo-saturate: 1.0;
+  --photo-sepia: 0.0;
+  --photo-contrast: 1.0;
+}

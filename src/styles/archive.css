@@ -1,0 +1,91 @@
+/* ============================================================
+   ARCHIVE — full-bleed editorial mosaic (Other Work page only)
+   Inspired by cher-ami.tv (asymmetric large photos, mono tags)
+   and kimbrandesign.com (mosaic collage, parallax, handwriting
+   tags, full-screen width). Photos touch screen edges, parallax
+   on scroll via --py CSS variable, SVG guidelines draw in on
+   scroll via stroke-dashoffset animation.
+   ============================================================ */
+
+body.page-archive .section--bleed { padding-bottom: calc(40px * var(--vrhythm)); }
+
+/* Series wrapper — single container for the unified mosaic of all photos. */
+.archive-series {
+  margin-bottom: calc(80px * var(--vrhythm));
+  position: relative;
+}
+
+.archive-intro {
+  position: relative;
+  width: 100%;
+  height: calc(96px * var(--vrhythm));
+}
+
+.archive-outro {
+  position: relative;
+  width: 100%;
+  height: calc(180px * var(--vrhythm));
+}
+
+/* Mosaic — one tall container (422vw) holding all 23 photos.
+   Each photo is position:absolute with top/left/width set inline;
+   height comes from the image's native aspect ratio (no crop). */
+.archive-mosaic {
+  position: relative;
+  padding: 0;
+  margin: 0 auto;
+}
+.archive-mosaic > div {
+  position: absolute;
+}
+.archive-mosaic > div > .figure {
+  margin: 0;
+  width: 100%;
+}
+.archive-mosaic > div > .figure > .photo {
+  width: 100%;
+  height: auto;
+  aspect-ratio: auto !important; /* defeat any inline aspect from Figure */
+}
+.archive-mosaic > div > .figure > .photo > img {
+  width: 100%;
+  height: auto;
+  object-fit: unset;
+  display: block;
+}
+
+/* Image caption inside the mosaic — small subtle tag below the photo. */
+.archive-mosaic .figcap {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-variant-caps: all-small-caps;
+  text-transform: none;
+  letter-spacing: 0.16em;
+  column-gap: 12px;
+  margin-top: 14px;
+}
+
+/* SVG guideline — one continuous fine line that snakes through all photos
+   of a series, sitting BEHIND them (z-index 0). Drawn in via
+   stroke-dashoffset animation as we scroll past. */
+.archive-guideline {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 0;
+}
+.archive-guideline path {
+  fill: none;
+  stroke: var(--ocre-klimt);
+  /* stroke-width in path-space (unitless = user units). With viewBox aspect
+     matching container, x/y scaling is equal — 0.06 reads as a uniform hairline. */
+  stroke-width: 0.06;
+  stroke-linecap: round;
+  opacity: 1;
+  /* pathLength="100" on the path normalises length math. dasharray:100
+     = one continuous dash → no repeating pattern. --draw runs 100 → 0. */
+  stroke-dasharray: 100;
+  stroke-dashoffset: var(--draw, 100);
+}

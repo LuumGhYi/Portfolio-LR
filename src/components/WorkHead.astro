@@ -1,0 +1,22 @@
+---
+// Page intro block (eyebrow + title + meta + lead paragraph). Replaces the
+// repeated `<div class="work__head">` pattern in 5 of the 6 pages.
+
+export interface Props {
+  eyebrow?: string;
+  title: string;
+  meta?: string;
+  lead: string;
+}
+
+const { eyebrow, title, meta, lead } = Astro.props;
+---
+
+<div class="work__head">
+  <div>
+    {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+    <h2>{title}</h2>
+    {meta && <p class="meta">{meta}</p>}
+  </div>
+  <p class="lead">{lead}</p>
+</div>

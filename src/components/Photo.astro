@@ -1,0 +1,88 @@
+---
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { resolveImage } from '@data/image-resolver';
+
+// Sizes presets matching the ImageRow variants — picked so the browser
+// downloads only the smallest version that satisfies its viewport*DPR.
+// Heros use larger widths because their LCP impact is paramount.
+const SIZES_BY_VARIANT = {
+  full:         '100vw',
+  hero:         '100vw',
+  '50-50':      '(min-width: 720px) 50vw, 100vw',
+  '40-60':      '(min-width: 720px) 50vw, 100vw',
+  '60-40':      '(min-width: 720px) 50vw, 100vw',
+  '65-35':      '(min-width: 720px) 50vw, 100vw',
+  '3':          '(min-width: 1180px) 33vw, (min-width: 720px) 50vw, 100vw',
+  'horizon-pair': '(min-width: 720px) 50vw, 100vw',
+  'hero-triptych': '(min-width: 720px) 33vw, 100vw',
+  tile:         '(min-width: 1024px) 33vw, 100vw',
+} as const;
+
+export type PhotoVariant = keyof typeof SIZES_BY_VARIANT;
+
+export interface Props {
+  /** Path relative to src/assets/images/ (preferred), OR an already-resolved
+      ImageMetadata for cases where the page imports the image explicitly. */
+  src: string | ImageMetadata;
+  alt: string;
+  /** Aspect ratio applied to the .photo wrapper (e.g. "4/3", "3/4"). */
+  aspect?: string;
+  className?: string;
+  cap?: string;
+  sub?: string;
+  /** Set true for the page hero — eager + fetchpriority high + wider sources. */
+  priority?: boolean;
+  /** Drives `sizes` and the widths set. Default 'full'. */
+  variant?: PhotoVariant;
+}
+
+const {
+  src,
+  alt,
+  aspect,
+  className = '',
+  cap,
+  sub,
+  priority = false,
+  variant = 'full',
+} = Astro.props;
+
+// Accept either a string path or a preloaded ImageMetadata.
+const metadata: ImageMetadata = typeof src === 'string' ? resolveImage(src) : src;
+
+const sizes = SIZES_BY_VARIANT[variant];
+// Bigger widths for heros (LCP), tighter for tiles.
+const widths = priority
+  ? [1280, 1920, 2560]
+  : variant === 'tile'
+    ? [480, 720, 960]
+    : [640, 960, 1280, 1920];
+
+const style = aspect ? `aspect-ratio: ${aspect}` : undefined;
+---
+
+<div
+  class:list={['photo', className]}
+  style={style}
+  role="button"
+  tabindex="0"
+  aria-label={`Open: ${alt}`}
+  data-lightbox-src={metadata.src}
+  data-lightbox-alt={alt}
+  data-lightbox-cap={cap}
+  data-lightbox-sub={sub}
+>
+  <Picture
+    src={metadata}
+    alt={alt}
+    widths={widths}
+    sizes={sizes}
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={82}
+    loading={priority ? 'eager' : 'lazy'}
+    decoding="async"
+    {...(priority ? { fetchpriority: 'high' as const } : {})}
+  />
+</div>

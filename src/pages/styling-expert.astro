@@ -1,0 +1,89 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import TopNav from '@components/TopNav.astro';
+import SiteFooter from '@components/SiteFooter.astro';
+import ImageRow from '@components/ImageRow.astro';
+import Figure from '@components/Figure.astro';
+import RowText from '@components/RowText.astro';
+import { STYLING_HEAD, STYLING_ROWS, STYLING_NOTE } from '@data/styling';
+import { buildImageGallery } from '@data/structured-data';
+
+const galleryImages = STYLING_ROWS.flatMap((row) =>
+  row.items
+    .filter((item) => item.kind === 'figure')
+    .map((item) => ({ src: item.src, alt: item.alt }))
+);
+
+const structuredData = buildImageGallery({
+  name: 'Styling Expert — Lucas Rageot',
+  description: 'Mannequin styling, close-up details, garment work on the H&M Dam flagship.',
+  url: '/styling-expert',
+  images: galleryImages,
+});
+---
+
+<BaseLayout
+  title="Styling Expert · Lucas Rageot"
+  description="Mannequin styling, close-up details, garment work on the H&M Dam flagship."
+  bodyClass="page-other"
+  current="styling-expert"
+  structuredData={structuredData}
+>
+  <TopNav current="styling-expert" overlay={false} />
+
+  <div class="page-body">
+
+    <section class="section section--dark grain" style="padding-bottom: 40px">
+      <div class="section__inner">
+        <div class="work__head">
+          <div>
+            <h2>{STYLING_HEAD.title}</h2>
+          </div>
+          <div>
+            <div class="meta">
+              {STYLING_HEAD.meta.map((m) => <span>{m}</span>)}
+            </div>
+            <p class="work__intro">{STYLING_HEAD.intro}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--dark grain section--bleed" style="padding-top: 0">
+      {STYLING_ROWS.map((row) => (
+        <ImageRow variant={row.variant} className={row.className} style={row.style}>
+          {row.items.map((item) =>
+            item.kind === 'figure' ? (
+              <Figure
+                src={item.src}
+                alt={item.alt}
+                aspect={item.aspect}
+                className={item.className}
+                cap={item.cap}
+                sub={item.sub}
+                priority={item.priority}
+              />
+            ) : (
+              <RowText
+                caption={item.caption}
+                title={item.title}
+                body={item.body}
+                cite={item.cite}
+                asQuote={item.asQuote}
+              />
+            )
+          )}
+        </ImageRow>
+      ))}
+
+      <div class="section__inner section__inner--padded">
+        <p class="work__notes">
+          {STYLING_NOTE.prefix}<a href={STYLING_NOTE.linkHref}>{STYLING_NOTE.linkLabel}</a>{STYLING_NOTE.suffix}
+        </p>
+      </div>
+    </section>
+
+  </div>
+
+  <SiteFooter />
+</BaseLayout>

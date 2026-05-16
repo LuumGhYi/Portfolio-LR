@@ -1,0 +1,28 @@
+---
+import Photo from './Photo.astro';
+import type { PhotoVariant } from './Photo.astro';
+import type { ImageMetadata } from 'astro';
+
+export interface Props {
+  src: string | ImageMetadata;
+  alt: string;
+  aspect?: string;
+  className?: string;
+  cap?: string;
+  sub?: string;
+  priority?: boolean;
+  variant?: PhotoVariant;
+}
+
+const { cap, sub, ...photoProps } = Astro.props;
+---
+
+<figure class="figure" style="margin: 0">
+  <Photo {...photoProps} cap={cap} sub={sub} />
+  {(cap || sub) && (
+    <figcaption class="figcap">
+      {cap && <b>{cap}</b>}
+      {sub && <span>{sub}</span>}
+    </figcaption>
+  )}
+</figure>

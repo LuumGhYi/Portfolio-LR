@@ -1,0 +1,56 @@
+---
+import { TOPNAV_PAGES } from '@data/nav';
+import MobileNav from './MobileNav';
+
+export interface Props {
+  current?: string;
+  overlay?: boolean;
+}
+
+const { current = 'index', overlay = false } = Astro.props;
+---
+
+<header class:list={['topnav', overlay && 'topnav--overlay topnav--maybe-overlay']} data-overlay={overlay}>
+  <a class="topnav__brand" href="/">
+    <span class="topnav__brand-name">Lucas Rageot</span>
+    <span class="topnav__brand-role">Visual Merchandiser</span>
+  </a>
+  <nav class="topnav__links" aria-label="Sections">
+    {TOPNAV_PAGES.map((p) => {
+      const isActive = current === p.slug;
+      return (
+        <a
+          href={p.href}
+          class:list={['topnav__link', isActive && 'is-active']}
+          aria-current={isActive ? 'page' : undefined}
+        >
+          {p.label}
+        </a>
+      );
+    })}
+  </nav>
+  <a class="topnav__contact" href="#contact">
+    <span>Contact</span>
+  </a>
+  <MobileNav client:load current={current} />
+</header>
+
+{overlay && (
+  <script is:inline>
+    // Toggle .topnav--overlay off once we've scrolled past the hero — matches
+    // legacy behaviour (clear overlay over hero, solid bar past it).
+    (function () {
+      const header = document.querySelector('.topnav--maybe-overlay');
+      if (!header) return;
+      const onScroll = () => {
+        if (window.scrollY > window.innerHeight * 0.8) {
+          header.classList.remove('topnav--overlay');
+        } else {
+          header.classList.add('topnav--overlay');
+        }
+      };
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+    })();
+  </script>
+)}

@@ -1,0 +1,111 @@
+/* ============================================================
+   RESPONSIVE — breakpoints grouped, mobile-last cascade
+   Loaded last so it wins over base/components/pages.
+   ============================================================ */
+
+@media (max-width: 1180px) {
+  .image-row--3 { grid-template-columns: 1fr 1fr; }
+  .image-row--3 > *:nth-child(3) { grid-column: 1 / -1; }
+}
+
+@media (max-width: 1024px) {
+  .topnav__brand-role { display: none; }
+  .topnav__links { gap: 22px; }
+  .topnav__link { font-size: 9.5px; letter-spacing: 0.12em; }
+  /* `body` prefix wins the cascade over default grid-template definitions
+     without resorting to !important. */
+  body :is(.about__grid, .approach__head, .work__head,
+          .collab, .site-footer__head,
+          .section-head, .case, .story) {
+    grid-template-columns: 1fr; gap: 32px;
+    flex-direction: column; align-items: flex-start;
+  }
+  .approach__head > *:first-child,
+  .work__head > *:first-child,
+  .collab > *:first-child,
+  .story > *:first-child,
+  .section-head > *:first-child,
+  .site-footer__head > *:first-child { padding-right: 0; max-width: none; }
+  .approach__intro,
+  .section-head .lead,
+  .story > *:last-child,
+  .collab > *:last-child,
+  .work__head > *:last-child,
+  .site-footer__lead { margin-left: 0; margin-right: 0; max-width: none; }
+  .site-footer__sectors { padding: 28px 0 0; }
+  .site-footer__row { grid-template-columns: 110px 1fr auto; gap: 20px; }
+  .approach__pillars { grid-template-columns: 1fr; gap: 36px; }
+  body .image-row { grid-template-columns: 1fr; }
+  .about__photo { position: static; min-height: 0; }
+  .cover__main { grid-template-columns: 1fr; }
+  .cover__meta { text-align: left; }
+  .cover__hint { left: auto; right: var(--gutter); transform: none; }
+  .entry-tiles { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 720px) {
+  .topnav { grid-template-columns: 1fr auto; padding: 0 16px; }
+  .topnav__links { display: none; }
+  .topnav__contact { display: none; }
+  .topnav__burger { display: block; }
+  :root { --gutter: 22px; --topnav-h: 56px; }
+  .section { padding: calc(72px * var(--vrhythm)) var(--gutter); }
+  .image-row { padding: 0 var(--gutter); }
+  h1 { font-size: 56px; }
+  h2 { font-size: 36px; }
+  .cover { min-height: 560px; }
+  .cover__main { left: var(--gutter); right: var(--gutter); bottom: 32px; }
+  .site-footer__sectors { max-width: none; }
+  .site-footer__row {
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    row-gap: 6px; column-gap: 16px;
+    padding: 22px 4px;
+    align-items: baseline;
+  }
+  .site-footer__row-label {
+    grid-column: 1; grid-row: 1;
+    font-size: 9.5px;
+  }
+  .site-footer__row-value {
+    grid-column: 1; grid-row: 2;
+    font-size: clamp(18px, 5.2vw, 22px);
+    word-break: break-word; overflow-wrap: anywhere;
+  }
+  .site-footer__row .arrow {
+    grid-column: 2; grid-row: 1 / span 2;
+    align-self: center;
+  }
+  .case__images { grid-template-columns: 1fr; }
+  .lightbox { grid-template-columns: 48px 1fr 48px; padding: 3vh 2vw; }
+  .lightbox__close { top: 12px; right: 12px; }
+}
+
+/* Touch/pointer — neutralise hover transforms on touch devices
+   so taps don't leave "stuck" hover states. */
+@media (hover: none) {
+  .photo:hover img,
+  .section--dark .photo:hover img { transform: none; }
+  .entry-tile:hover { transform: none; box-shadow: none; }
+  .entry-tile:hover img { transform: none; }
+  .entry-tile:hover .entry-tile__cta .arr { transform: none; }
+  .site-footer__row:hover { background: transparent; }
+  .site-footer__row:hover .arrow { transform: none; }
+  .topnav__contact:hover { gap: 10px; }
+  .topnav__contact:hover .topnav__arrow { transform: none; }
+  .lightbox__nav--prev:hover,
+  .lightbox__nav--next:hover { transform: none; }
+}
+
+/* Accessibility — honour the user's motion preference. WCAG 2.1 / 2.3.3. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  [data-parallax] { transform: none !important; }
+}

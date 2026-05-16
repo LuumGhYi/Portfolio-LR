@@ -1,0 +1,6 @@
+# Netlify redirects — legacy .html slugs redirect to clean Astro routes.
+/Portfolio.html          /                       301
+/visual-merchandising.html   /visual-merchandising  301
+/other-work.html         /styling-expert         301
+/outdoor.html            /outdoor                301
+/archive.html            /archive                301

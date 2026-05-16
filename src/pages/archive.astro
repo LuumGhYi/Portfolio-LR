@@ -1,0 +1,92 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import TopNav from '@components/TopNav.astro';
+import SiteFooter from '@components/SiteFooter.astro';
+import Figure from '@components/Figure.astro';
+import {
+  ARCHIVE_HERO,
+  ARCHIVE_GUIDELINE_VIEWBOX,
+  ARCHIVE_GUIDELINE_PATH,
+  ARCHIVE_COLLAGE,
+  ARCHIVE_MOSAIC_HEIGHT,
+} from '@data/archive';
+import { buildImageGallery } from '@data/structured-data';
+
+const galleryImages = [
+  { src: ARCHIVE_HERO.src, alt: ARCHIVE_HERO.alt },
+  ...ARCHIVE_COLLAGE.map((item) => ({ src: item.src, alt: item.alt })),
+];
+
+const structuredData = buildImageGallery({
+  name: 'Other Work — Lucas Rageot',
+  description: 'Edinburgh, Amsterdam, editorial details, atmospheric skies.',
+  url: '/archive',
+  images: galleryImages,
+});
+---
+
+<BaseLayout
+  title="Other Work · Lucas Rageot"
+  description="Edinburgh, Amsterdam, editorial details, atmospheric skies. Side practice 2019 to present."
+  bodyClass="page-archive"
+  current="archive"
+  structuredData={structuredData}
+>
+  <TopNav current="archive" overlay={false} />
+
+  <div class="page-body">
+
+    <section class="section section--dark grain" style="padding-bottom: 40px">
+      <div class="section__inner">
+        <div class="work__head">
+          <div>
+            <h2>{ARCHIVE_HERO.title}</h2>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--dark grain section--bleed" style="padding-top: 0">
+
+      <div
+        class="image-row image-row--full"
+        style="margin-bottom: 0; position: relative; z-index: 2"
+      >
+        <Figure
+          src={ARCHIVE_HERO.src}
+          alt={ARCHIVE_HERO.alt}
+          className={ARCHIVE_HERO.className}
+          priority={true}
+        />
+      </div>
+
+      <div class="archive-series">
+        <div class="archive-mosaic" style={`height: ${ARCHIVE_MOSAIC_HEIGHT}`}>
+
+          <svg
+            class="archive-guideline"
+            data-guideline
+            viewBox={ARCHIVE_GUIDELINE_VIEWBOX}
+            preserveAspectRatio="none"
+          >
+            <path d={ARCHIVE_GUIDELINE_PATH} pathLength="100" />
+          </svg>
+
+          {ARCHIVE_COLLAGE.map((item) => (
+            <div
+              style={`top: ${item.top}; left: ${item.left}; width: ${item.width}; z-index: ${item.z}`}
+              data-parallax={item.parallax}
+            >
+              <Figure src={item.src} alt={item.alt} />
+            </div>
+          ))}
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <SiteFooter />
+</BaseLayout>

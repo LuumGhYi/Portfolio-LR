@@ -1,0 +1,88 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import TopNav from '@components/TopNav.astro';
+import SiteFooter from '@components/SiteFooter.astro';
+import ImageRow from '@components/ImageRow.astro';
+import Figure from '@components/Figure.astro';
+import RowText from '@components/RowText.astro';
+import { OUTDOOR_HEAD, OUTDOOR_ROWS, OUTDOOR_NOTE } from '@data/outdoor';
+import { buildImageGallery } from '@data/structured-data';
+
+const galleryImages = OUTDOOR_ROWS.flatMap((row) =>
+  row.items
+    .filter((item) => item.kind === 'figure')
+    .map((item) => ({ src: item.src, alt: item.alt }))
+);
+
+const structuredData = buildImageGallery({
+  name: 'Outdoor & Landscape — Lucas Rageot',
+  description: 'Highlands, Calanques, Alps. Photography practice 2019 to present.',
+  url: '/outdoor',
+  images: galleryImages,
+});
+---
+
+<BaseLayout
+  title="Outdoor & Landscape · Lucas Rageot"
+  description="Highlands, Calanques, Alps. Photography practice 2019 to present."
+  bodyClass="page-outdoor"
+  current="outdoor"
+  structuredData={structuredData}
+>
+  <TopNav current="outdoor" overlay={false} />
+
+  <div class="page-body">
+    <section class="section section--dark grain" style="padding-bottom: 40px">
+      <div class="section__inner">
+        <div class="work__head">
+          <div>
+            <blockquote>
+              <h2>{OUTDOOR_HEAD.quote}</h2>
+              <cite style="display: block; margin-top: 8px; opacity: 0.6">{OUTDOOR_HEAD.author}</cite>
+            </blockquote>
+          </div>
+          <div>
+            <div class="meta">
+              <span>{OUTDOOR_HEAD.meta}</span>
+            </div>
+            <p class="work__intro">{OUTDOOR_HEAD.intro}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--dark grain section--bleed" style="padding-top: 0">
+      {OUTDOOR_ROWS.map((row) => (
+        <ImageRow variant={row.variant} className={row.className} style={row.style}>
+          {row.items.map((item) =>
+            item.kind === 'figure' ? (
+              <Figure
+                src={item.src}
+                alt={item.alt}
+                aspect={item.aspect}
+                className={item.className}
+                cap={item.cap}
+                sub={item.sub}
+                priority={item.priority}
+              />
+            ) : (
+              <RowText
+                caption={item.caption}
+                title={item.title}
+                body={item.body}
+                cite={item.cite}
+                asQuote={item.asQuote}
+              />
+            )
+          )}
+        </ImageRow>
+      ))}
+
+      <div class="section__inner section__inner--padded">
+        <p class="work__notes">{OUTDOOR_NOTE}</p>
+      </div>
+    </section>
+  </div>
+
+  <SiteFooter />
+</BaseLayout>
