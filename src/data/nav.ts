@@ -11,12 +11,12 @@ export type PageEntry = {
 };
 
 export const PAGES: readonly PageEntry[] = [
-  { slug: 'index', href: '/', label: 'Index' },
+  { slug: 'index', href: '/', label: 'Home' },
   { slug: 'visual-merchandising', href: '/visual-merchandising', label: 'Visual Merchandising' },
   { slug: 'styling-expert', href: '/styling-expert', label: 'Styling Expert' },
   { slug: 'outdoor', href: '/outdoor', label: 'Outdoor' },
   { slug: 'archive', href: '/archive', label: 'Other Work' },
 ] as const;
 
-/** Subset shown in the desktop top-nav (everything except Index). */
+/** Subset shown in the desktop top-nav (everything except Home). */
 export const TOPNAV_PAGES = PAGES.slice(1);
