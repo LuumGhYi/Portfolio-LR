@@ -85,6 +85,15 @@
   .case__images { grid-template-columns: 1fr; }
   .lightbox { grid-template-columns: 48px 1fr 48px; padding: 3vh 2vw; }
   .lightbox__close { top: 12px; right: 12px; }
+
+  /* Styling profile, smartphone only: reorder landing tiles to match the
+     burger nav order — Styling Expert first, then Visual Merchandising,
+     then Outdoor. Desktop (and tablet > 720px) keep the canonical order
+     (01 VM, 02 Styling, 03 Outdoor). The "Page 01/02/03" labels remain
+     attached to their card as stable identifiers. */
+  .entry-tiles--styling-mobile-order .entry-tile:nth-child(1) { order: 2; }
+  .entry-tiles--styling-mobile-order .entry-tile:nth-child(2) { order: 1; }
+  .entry-tiles--styling-mobile-order .entry-tile:nth-child(3) { order: 3; }
 }
 
 /* Touch/pointer — neutralise hover transforms on touch devices

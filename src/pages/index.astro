@@ -5,7 +5,7 @@ import TopNav from '@components/TopNav.astro';
 import SiteFooter from '@components/SiteFooter.astro';
 import Photo from '@components/Photo.astro';
 import { resolveImage } from '@data/image-resolver';
-import { IS_VM_PROFILE } from '@data/profile';
+import { IS_VM_PROFILE, IS_STYLING_PROFILE } from '@data/profile';
 import {
   HERO,
   TILES,
@@ -64,7 +64,7 @@ const tileImgs = TILES.map((t) => ({ ...t, resolved: resolveImage(t.img) }));
 
   <section class="section section--light grain">
     <div class="section__inner">
-      <div class="entry-tiles">
+      <div class:list={['entry-tiles', IS_STYLING_PROFILE && 'entry-tiles--styling-mobile-order']}>
         {tileImgs.map((t) => (
           <a class="entry-tile" href={t.href}>
             <Picture
