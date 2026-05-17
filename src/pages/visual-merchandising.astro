@@ -11,12 +11,18 @@ import {
   VM_ROWS,
   VM_COLLAB,
 } from '@data/vm';
+import { IS_VM_PROFILE } from '@data/profile';
 import { buildImageGallery } from '@data/structured-data';
 
 const galleryImages = VM_ROWS.flatMap((row) =>
   row.items
     .filter((item) => item.kind === 'figure')
     .map((item) => ({ src: item.src, alt: item.alt }))
+).concat(
+  // Include the Chanel photos in the JSON-LD gallery only for v1.
+  IS_VM_PROFILE
+    ? VM_COLLAB.photos.map((p) => ({ src: p.src, alt: p.alt }))
+    : []
 );
 
 const structuredData = buildImageGallery({
@@ -29,7 +35,7 @@ const structuredData = buildImageGallery({
 
 <BaseLayout
   title="Visual Merchandising · Lucas Rageot"
-  description="H&M Dam flagship, Made-in-France register, luxury collaboration. Eight years of visual merchandising."
+  description="MEEEEEEEEEEEEEEEEERD."
   bodyClass="page-vm"
   current="visual-merchandising"
   structuredData={structuredData}
@@ -123,22 +129,41 @@ const structuredData = buildImageGallery({
 
     </section>
 
-    {/* COLLAB */}
-    <section class="section section--light grain">
-      <div class="section__inner">
-        <div class="collab">
-          <div>
-            <span class="eyebrow eyebrow--block">{VM_COLLAB.eyebrow}</span>
-            <h3>{VM_COLLAB.title}</h3>
-            <div class="meta">{VM_COLLAB.meta}</div>
-          </div>
-          <div>
-            {VM_COLLAB.body.map((para) => <p>{para}</p>)}
-            <p class="collab__note">{VM_COLLAB.note}</p>
+    {/* COLLAB — only rendered on the 'vm' profile. The 'styling' profile hides
+        the entire section so the safe portfolio has zero mention of the
+        Chanel collaboration. */}
+    {IS_VM_PROFILE && (
+      <section class="section section--light grain">
+        <div class="section__inner">
+          <div class="collab">
+            <div>
+              <span class="eyebrow eyebrow--block">{VM_COLLAB.eyebrow}</span>
+              <h3>{VM_COLLAB.title}</h3>
+              <div class="meta">{VM_COLLAB.meta}</div>
+            </div>
+            <div>
+              {VM_COLLAB.body.map((para) => <p>{para}</p>)}
+              <p class="collab__note">{VM_COLLAB.note}</p>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+
+        {/* Chanel Amsterdam photo grid — 3 + 3 + 1 layout matching Outdoor's pattern. */}
+        <ImageRow variant="3">
+          <Figure src={VM_COLLAB.photos[0].src} alt={VM_COLLAB.photos[0].alt} aspect="3/4" cap={VM_COLLAB.photos[0].cap} sub={VM_COLLAB.photos[0].sub} />
+          <Figure src={VM_COLLAB.photos[1].src} alt={VM_COLLAB.photos[1].alt} aspect="3/4" cap={VM_COLLAB.photos[1].cap} sub={VM_COLLAB.photos[1].sub} />
+          <Figure src={VM_COLLAB.photos[2].src} alt={VM_COLLAB.photos[2].alt} aspect="3/4" cap={VM_COLLAB.photos[2].cap} sub={VM_COLLAB.photos[2].sub} />
+        </ImageRow>
+        <ImageRow variant="3">
+          <Figure src={VM_COLLAB.photos[3].src} alt={VM_COLLAB.photos[3].alt} aspect="3/4" cap={VM_COLLAB.photos[3].cap} sub={VM_COLLAB.photos[3].sub} />
+          <Figure src={VM_COLLAB.photos[4].src} alt={VM_COLLAB.photos[4].alt} aspect="3/4" cap={VM_COLLAB.photos[4].cap} sub={VM_COLLAB.photos[4].sub} />
+          <Figure src={VM_COLLAB.photos[5].src} alt={VM_COLLAB.photos[5].alt} aspect="3/4" cap={VM_COLLAB.photos[5].cap} sub={VM_COLLAB.photos[5].sub} />
+        </ImageRow>
+        <ImageRow variant="full">
+          <Figure src={VM_COLLAB.photos[6].src} alt={VM_COLLAB.photos[6].alt} className="photo--hero" cap={VM_COLLAB.photos[6].cap} sub={VM_COLLAB.photos[6].sub} />
+        </ImageRow>
+      </section>
+    )}
 
   </div>
 

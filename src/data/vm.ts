@@ -5,17 +5,17 @@ import type { Row } from './outdoor';
 const VM = 'visual-merchandising/';
 
 export const VM_HEAD = {
-  title: 'The day job',
+  title: 'Inspire people to find their own voices',
   meta: ['H&M Dam', 'Olly Gan', 'Le Slip Français', 'Luxury collab'],
   intro:
-    "Across H&M's Amsterdam flagship, French premium menswear floors, and a short luxury collaboration. The work below is selected; references for the rest available on request.",
+    "Across H&M's Amsterdam flagship, French premium menswear floors, I strive to entice customers to explore who they are.",
 } as const;
 
 export const VM_DAM_HEAD = {
   eyebrow: '01 · H&M Flagship · Amsterdam Dam',
   title: 'H&M Flagship\nAmsterdam, Dam',
-  meta: ['6 floors, 1,200 m²', 'VM team of 4 to 6', 'Two to four full-store rehangs per month'],
-  intro: "H&M's busiest Amsterdam location, on Dam square. The work below is a selection, grouped by story.",
+  meta: ['6 floors, 1,200 m²', 'VM team of 4 to 6', 'Two to four rehangs per month'],
+  intro: "Leading the eye through a challenging layout and multiple-entry customer tracks while keeping a coherent and cohesive store is key to making their journey feel entirely intuitive and personal.",
 } as const;
 
 export const VM_ROWS: readonly Row[] = [
@@ -44,14 +44,14 @@ export const VM_ROWS: readonly Row[] = [
     variant: '65-35',
     items: [
       { kind: 'figure', src: VM + 'everyday/spring-blue/IMG_20250424_093525_DxO-Modifier.png', alt: 'Spring Blue mannequins, façade-side window composition', aspect: '4/3', cap: '05 · Spring Blue', sub: 'Window composition.' },
-      { kind: 'rowText', caption: 'Spring Jaune · floor', title: 'Window programs on a two-week cycle', body: 'Concept, prop, light, three mannequins. Each story held the floor for two weeks, then made room for the next register.' },
+      { kind: 'rowText', caption: 'Spring blue · floor', title: 'Window programs on a two-week cycle', body: 'From ten up to thirty mannequins, choosing the best outfits, preping, ironing, dressing, this is where the fun begins. Each story held the floor for two weeks, then made room for the next register.' },
     ],
   },
   {
     variant: '50-50',
     items: [
-      { kind: 'figure', src: VM + 'everyday/spring-jaune/IMG_20250320_100010_DxO.jpg', alt: 'Spring Jaune window from the street, yellow tones', aspect: '4/3', cap: '06 · Spring Jaune', sub: 'Yellow window, side.' },
-      { kind: 'figure', src: VM + 'everyday/spring-jaune/IMG_20250320_100604_DxO.png', alt: 'Spring Jaune additional floor moment', aspect: '4/3', cap: '07 · Spring Jaune', sub: 'Floor continuation.' },
+      { kind: 'figure', src: VM + 'everyday/spring-jaune/IMG_20250320_100010_DxO.jpg', alt: 'Spring Yellow window from the street, yellow tones', aspect: '4/3', cap: '06 · Spring Yellow', sub: 'Yellow window, side.' },
+      { kind: 'figure', src: VM + 'everyday/spring-jaune/IMG_20250320_100604_DxO.png', alt: 'Spring Yellow additional floor moment', aspect: '4/3', cap: '07 · Spring Yellow', sub: 'Floor continuation.' },
     ],
   },
   {
@@ -108,15 +108,31 @@ export const VM_ROWS: readonly Row[] = [
   },
 ] as const;
 
+export interface CollabPhoto {
+  src: string;
+  alt: string;
+  cap: string;
+  sub: string;
+}
+
 export const VM_COLLAB = {
   eyebrow: '02 · Luxury collaboration',
-  title: 'Visual merchandising collaboration',
-  meta: 'Boutique Amsterdam',
+  title: 'Chanel boutique · Amsterdam',
+  meta: 'Chanel · Amsterdam · seasonal rotation',
   body: [
-    "Assisted on a luxury maison's overnight store set-up in Amsterdam — presentation changeover for an Autumn/Winter rotation, working alongside the in-house VM team.",
-    'First hands-on contact with luxury-level VM standards. A different level of detail on every surface.',
+    "Assisted on Chanel's overnight store set-up at the Amsterdam boutique. One boutique one story, each and every boutique as their own motto for Amsterdam it goes like 'casual meet sophistication yala yala' ",
+    'The VM needs to reflect what the brans stand for. Entering the world of Chanel fashion promises every woman an enduring, unique bond of trust and timeless moments of wonder.',
   ],
-  note: "Brand and imagery withheld out of respect for the maison's confidentiality. References available on request.",
+  note: 'Photos shared with permission. Further references available on request.',
+  photos: [
+    { src: VM + 'collab-chanel/chanel-amsterdam-01.jpeg', alt: 'Chanel Amsterdam boutique, mannequin styling for the A/W rotation', cap: '01 · Mannequin', sub: 'A/W rotation styling.' },
+    { src: VM + 'collab-chanel/chanel-amsterdam-02.jpeg', alt: 'Chanel Amsterdam boutique, accessories display detail', cap: '02 · Accessories', sub: 'Display detail.' },
+    { src: VM + 'collab-chanel/chanel-amsterdam-03.jpeg', alt: 'Chanel Amsterdam boutique, vitrine alignment', cap: '03 · Vitrine', sub: 'Alignment pass.' },
+    { src: VM + 'collab-chanel/chanel-amsterdam-04.jpeg', alt: 'Chanel Amsterdam boutique, floor composition', cap: '04 · Floor', sub: 'Composition wider read.' },
+    { src: VM + 'collab-chanel/chanel-amsterdam-05.jpeg', alt: 'Chanel Amsterdam boutique, plinth detail', cap: '05 · Plinth', sub: 'Detail view.' },
+    { src: VM + 'collab-chanel/chanel-amsterdam-06.jpeg', alt: 'Chanel Amsterdam boutique, secondary display', cap: '06 · Secondary', sub: 'Display in context.' },
+    { src: VM + 'collab-chanel/chanel-amsterdam-07.jpeg', alt: 'Chanel Amsterdam boutique, closing arrangement', cap: '07 · Closing', sub: 'Final arrangement.' },
+  ] as readonly CollabPhoto[],
 } as const;
 
 export const VM_NOTE =

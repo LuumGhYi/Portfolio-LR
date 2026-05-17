@@ -1,5 +1,6 @@
 ---
 import { TOPNAV_PAGES } from '@data/nav';
+import { IS_VM_PROFILE } from '@data/profile';
 import MobileNav from './MobileNav';
 
 export interface Props {
@@ -13,7 +14,7 @@ const { current = 'index', overlay = false } = Astro.props;
 <header class:list={['topnav', overlay && 'topnav--overlay topnav--maybe-overlay']} data-overlay={overlay}>
   <a class="topnav__brand" href="/">
     <span class="topnav__brand-name">Lucas Rageot</span>
-    <span class="topnav__brand-role">Visual Merchandiser</span>
+    {IS_VM_PROFILE && <span class="topnav__brand-role">Visual Merchandiser</span>}
   </a>
   <nav class="topnav__links" aria-label="Sections">
     {TOPNAV_PAGES.map((p) => {

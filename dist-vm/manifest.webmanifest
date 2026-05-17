@@ -1,0 +1,14 @@
+{
+  "name": "Lucas Rageot · Portfolio",
+  "short_name": "L. Rageot",
+  "description": "Portfolio of Lucas Rageot, Visual Merchandiser.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f5f2eb",
+  "theme_color": "#1e2328",
+  "lang": "en",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

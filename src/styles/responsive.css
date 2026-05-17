@@ -50,7 +50,13 @@
   .topnav__burger { display: block; }
   :root { --gutter: 22px; --topnav-h: 56px; }
   .section { padding: calc(72px * var(--vrhythm)) var(--gutter); }
+  /* Re-restore the bleed override, otherwise the .section shorthand above
+     wins (same specificity, later in cascade) and adds gutter back. */
+  .section--bleed { padding-left: 0; padding-right: 0; }
   .image-row { padding: 0 var(--gutter); }
+  /* Hero rows stay edge-to-edge on mobile — full bleed across the screen. */
+  .image-row--full,
+  .image-row--hero-triptych { padding: 0; }
   h1 { font-size: 56px; }
   h2 { font-size: 36px; }
   .cover { min-height: 560px; }

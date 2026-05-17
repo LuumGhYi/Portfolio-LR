@@ -414,6 +414,20 @@
   font-family: var(--font-display); font-style: italic;
   font-weight: 400; color: var(--ocre-klimt);
 }
+.site-footer__tagline {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(20px, 1.8vw, 28px);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: rgba(240, 237, 229, 0.72);
+  /* Optical alignment: the italic "C" of Contact has slightly more left
+     side-bearing than the italic "L" of Let's. Small nudge so the L
+     visually aligns under the optical edge of the C. */
+  margin: 14px 0 0;
+  padding-left: 0.2em;
+}
 .site-footer__lead {
   color: rgba(240,237,229,0.78);
   max-width: 46ch; font-size: 17px; line-height: 1.55;

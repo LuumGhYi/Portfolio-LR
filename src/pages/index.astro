@@ -5,6 +5,7 @@ import TopNav from '@components/TopNav.astro';
 import SiteFooter from '@components/SiteFooter.astro';
 import Photo from '@components/Photo.astro';
 import { resolveImage } from '@data/image-resolver';
+import { IS_VM_PROFILE } from '@data/profile';
 import {
   HERO,
   TILES,
@@ -20,7 +21,9 @@ const tileImgs = TILES.map((t) => ({ ...t, resolved: resolveImage(t.img) }));
 ---
 
 <BaseLayout
-  title="Lucas Rageot, Visual Merchandiser · Portfolio 2026"
+  title={IS_VM_PROFILE
+    ? 'Lucas Rageot, Visual Merchandiser · Portfolio 2026'
+    : 'Lucas Rageot · Portfolio 2026'}
   current="index"
 >
   <TopNav current="index" overlay={true} />
@@ -43,7 +46,10 @@ const tileImgs = TILES.map((t) => ({ ...t, resolved: resolveImage(t.img) }));
 
     <div class="cover__main">
       <div>
-        <div class="cover__role">Visual Merchandiser · Portfolio</div>
+        <div class="cover__role">{IS_VM_PROFILE ? 'Visual Merchandiser · Portfolio' : 'Portfolio'}</div>
+        {/* TODO v2: Lucas will provide a styling-focused hero photo to replace
+            the Spring Jaune cover. Once available, swap the <Picture> src above
+            with a styling/${IS_STYLING_PROFILE ? 'hero' : ''} conditional. */}
         <h1>Lucas <em>Rageot</em></h1>
       </div>
       <div class="cover__meta">
@@ -100,8 +106,10 @@ const tileImgs = TILES.map((t) => ({ ...t, resolved: resolveImage(t.img) }));
         <span class="eyebrow">About</span>
         <h2>Lucas, 33, French. Retail floor experience</h2>
         <p class="lead">
-          I was the Visual Merchandiser at H&amp;M Amsterdam Dam: six floors,
-          womenswear and menswear. Before that, premium menswear floors in France
+          {IS_VM_PROFILE
+            ? 'I was the Visual Merchandiser at H&M Amsterdam Dam: six floors, womenswear and menswear.'
+            : 'I worked on the floor at H&M Amsterdam Dam: six floors, womenswear and menswear.'}
+          {' '}Before that, premium menswear floors in France
           (Olly Gan, Le Slip Français).
           Consultative selling, clienteling, French premium positioning, for people who value quality and domestic production.
         </p>

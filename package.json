@@ -6,6 +6,10 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "build:vm": "cross-env PUBLIC_PROFILE=vm astro build --outDir dist-vm",
+    "build:styling": "cross-env PUBLIC_PROFILE=styling astro build --outDir dist-styling",
+    "build:all": "npm run build:vm && npm run build:styling",
+    "deploy:all": "npm run build:all && wrangler pages deploy dist-vm --project-name=portfolio-lucas-rageot && wrangler pages deploy dist-styling --project-name=portfolio-lucas-rageot-styling",
     "preview": "astro preview",
     "astro": "astro",
     "check": "astro check"
@@ -22,6 +26,7 @@
     "@astrojs/check": "^0.9.4",
     "@types/react": "^18.3.20",
     "@types/react-dom": "^18.3.7",
+    "cross-env": "^10.1.0",
     "typescript": "^5.7.3"
   }
 }

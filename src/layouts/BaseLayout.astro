@@ -1,5 +1,6 @@
 ---
 import { SITE } from '@data/site';
+import { IS_VM_PROFILE } from '@data/profile';
 import Lightbox from '@components/Lightbox';
 // CSS layered import — order matters: tokens → base → components → pages →
 // archive (page-specific) → responsive (last so media queries win the cascade).
@@ -33,11 +34,13 @@ const ogImageUrl = ogImage
   ? new URL(ogImage, Astro.site ?? SITE.baseUrl).toString()
   : undefined;
 
-const personLd = {
+// Build the Person JSON-LD. On the 'styling' profile we omit jobTitle to avoid
+// any "Visual Merchandiser" mention in the structured data that search engines
+// would index — keeps the safe portfolio truly free of that label.
+const personLd: Record<string, unknown> = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: SITE.name,
-  jobTitle: SITE.role,
   url: SITE.baseUrl,
   email: `mailto:${SITE.email}`,
   sameAs: [SITE.linkedin],
@@ -47,6 +50,9 @@ const personLd = {
     addressCountry: SITE.location.countryCode,
   },
 };
+if (IS_VM_PROFILE) {
+  personLd.jobTitle = SITE.role;
+}
 ---
 
 <!doctype html>
