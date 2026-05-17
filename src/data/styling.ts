@@ -19,40 +19,56 @@ export const STYLING_ROWS: readonly Row[] = [
       { kind: 'figure', src: ROOT + 'IMG_0822_DxO.png', alt: 'Denim cape with brass cowboy-boot pendant, close detail', cap: '03 · Pendant', sub: 'Denim, brass pendant.' },
     ],
   },
+  // NEW: 3 styling close-ups inserted right after the hero triptych.
+  // Photos 04 + 05 paired in a 50-50 row; photo 06 paired with the "Tone" rowText.
   {
     variant: '50-50',
     items: [
-      { kind: 'figure', src: ROOT + 'IMG_0823_DxO.png', alt: 'Pink ruffle dress with denim jacket, two mannequins', aspect: '4/3', cap: '04 · Pink + denim', sub: 'Ruffle blouse, denim jacket pairing.' },
-      { kind: 'figure', src: ROOT + 'IMG_0827_DxO.jpg', alt: 'Divided mannequins, grey bomber and daisy print denim', aspect: '4/3', cap: '05 · Daisy + denim', sub: 'Bomber, daisy print, sport register.' },
+      { kind: 'figure', src: ROOT + 'styling-cuff.jpg', alt: 'Hand on layered denim and check jacket, beige tee underneath', aspect: '3/4', cap: '04 · Cuff', sub: 'Hand on layered jacket.' },
+      { kind: 'figure', src: ROOT + 'styling-layering.jpg', alt: 'Crochet cardigan over knit top with leather belt close-up', aspect: '3/4', cap: '05 · Layering', sub: 'Crochet cardigan, leather belt.' },
+    ],
+  },
+  {
+    variant: '40-60',
+    items: [
+      { kind: 'rowText', caption: 'Tone', title: "It's how you say it", body: 'Even with plain black we can say a lot playing with texture and shapes.' },
+      { kind: 'figure', src: ROOT + 'styling-tone.jpg', alt: 'Black-and-white close-up of zipped jacket, striped shirt, studded belt and corduroy pants', aspect: '3/4', className: 'photo--focus-top', cap: '06 · Tone', sub: 'Black-on-black texture play.' },
+    ],
+  },
+  {
+    variant: '50-50',
+    items: [
+      { kind: 'figure', src: ROOT + 'IMG_0823_DxO.png', alt: 'Pink ruffle dress with denim jacket, two mannequins', aspect: '4/3', cap: '07 · Pink + denim', sub: 'Ruffle blouse, denim jacket pairing.' },
+      { kind: 'figure', src: ROOT + 'IMG_0827_DxO.jpg', alt: 'Divided mannequins, grey bomber and daisy print denim', aspect: '4/3', cap: '08 · Daisy + denim', sub: 'Bomber, daisy print, sport register.' },
     ],
   },
   {
     variant: '40-60',
     items: [
       { kind: 'rowText', caption: 'Register', title: 'A matter of voice', body: "Both mannequins convey the same ideas, yet they're telling it differently." },
-      { kind: 'figure', src: ROOT + 'IMG_20250424_092836_DxO.png', alt: 'Spring Blue mannequins, striped blouse and blue floral skirt', aspect: '3/4', className: 'photo--focus-top', cap: '06 · Spring Blue', sub: 'Striped blouse, blue floral skirt.' },
+      { kind: 'figure', src: ROOT + 'IMG_20250424_092836_DxO.png', alt: 'Spring Blue mannequins, striped blouse and blue floral skirt', aspect: '3/4', className: 'photo--focus-top', cap: '09 · Spring Blue', sub: 'Striped blouse, blue floral skirt.' },
     ],
   },
   {
     variant: '3',
     items: [
-      { kind: 'figure', src: ROOT + 'IMG_20250115_102821_DxO.png', alt: 'Preppy Trench three mannequins, cap and stripes', aspect: '3/4', className: 'photo--focus-top', cap: '07 · Preppy Trench', sub: 'Cap, trench, stripes.' },
-      { kind: 'figure', src: ROOT + 'IMG_20250307_093913_DxO.jpg', alt: 'Preppy Blue mannequins, Académie sweat and denim', aspect: '3/4', className: 'photo--focus-top', cap: '08 · Académie', sub: 'Académie sweat, denim, loafers.' },
-      { kind: 'figure', src: ROOT + 'IMG_20250320_094850_DxO.jpg', alt: 'Spring Jaune two mannequins with jewelry plinth', aspect: '3/4', className: 'photo--focus-top', cap: '09 · Spring Jaune', sub: 'White ruffle, yellow blouse, jewelry plinth.' },
+      { kind: 'figure', src: ROOT + 'IMG_20250115_102821_DxO.png', alt: 'Preppy Trench three mannequins, cap and stripes', aspect: '3/4', className: 'photo--focus-top', cap: '10 · Preppy Trench', sub: 'Cap, trench, stripes.' },
+      { kind: 'figure', src: ROOT + 'IMG_20250307_093913_DxO.jpg', alt: 'Preppy Blue mannequins, Académie sweat and denim', aspect: '3/4', className: 'photo--focus-top', cap: '11 · Académie', sub: 'Académie sweat, denim, loafers.' },
+      { kind: 'figure', src: ROOT + 'IMG_20250320_094850_DxO.jpg', alt: 'Spring Jaune two mannequins with jewelry plinth', aspect: '3/4', className: 'photo--focus-top', cap: '12 · Spring Jaune', sub: 'White ruffle, yellow blouse, jewelry plinth.' },
     ],
   },
   {
     variant: '40-60',
     items: [
-      { kind: 'figure', src: ROOT + 'IMG_20250410_095411_DxO.jpg', alt: 'Soft register two mannequins, beige vest and pink dress', aspect: '3/4', className: 'photo--focus-top', cap: '10 · Soft register', sub: 'Beige tailoring, pink silk, low jewelry plinth.' },
+      { kind: 'figure', src: ROOT + 'IMG_20250410_095411_DxO.jpg', alt: 'Soft register two mannequins, beige vest and pink dress', aspect: '3/4', className: 'photo--focus-top', cap: '13 · Soft register', sub: 'Beige tailoring, pink silk, low jewelry plinth.' },
       { kind: 'rowText', caption: 'Punctuation', title: 'Punctuation is rhythm', body: 'Accessories shift the cadence without adding a word and shoes decide the nature of the sentence.' },
     ],
   },
   {
     variant: '50-50',
     items: [
-      { kind: 'figure', src: ROOT + 'IMG_20250515_094636_DxO_alt.png', alt: 'Palm-print scarf and textured black dress mannequins', aspect: '3/4', className: 'photo--focus-top', cap: '11 · Harissa', sub: 'Palm scarf, textured black.' },
-      { kind: 'figure', src: ROOT + 'IMG_0790_DxO.jpg', alt: 'Black leather jacket and denim mannequins close-up', aspect: '3/4', className: 'photo--focus-top', cap: '12 · Edge', sub: 'Black leather, denim, edgier register.' },
+      { kind: 'figure', src: ROOT + 'IMG_20250515_094636_DxO_alt.png', alt: 'Palm-print scarf and textured black dress mannequins', aspect: '3/4', className: 'photo--focus-top', cap: '14 · Harissa', sub: 'Palm scarf, textured black.' },
+      { kind: 'figure', src: ROOT + 'IMG_0790_DxO.jpg', alt: 'Black leather jacket and denim mannequins close-up', aspect: '3/4', className: 'photo--focus-top', cap: '15 · Edge', sub: 'Black leather, denim, edgier register.' },
     ],
   },
 ] as const;
